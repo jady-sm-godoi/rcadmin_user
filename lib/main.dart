@@ -3,6 +3,7 @@ import 'package:rcadmin_user/data/dummy_profile.dart';
 
 import 'components/drawer_menu_profile.dart';
 import 'components/menu_profile.dart';
+import 'components/expansion_data_profile.dart';
 
 import 'model/user_profile.dart';
 
@@ -18,13 +19,15 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
-  bool _contactExpanded = false;
-  bool _addressExpanded = false;
-  bool _moreExpanded = false;
-
   @override
   Widget build(BuildContext context) {
     final List<UserProfile> profiles = dummyProfile;
+
+    final user = profiles.map((profile) {
+      if (profile.email == 'jady.s.m@gmail.com') {
+        return profile;
+      }
+    }).toList();
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -47,26 +50,24 @@ class _UserPageState extends State<UserPage> {
               Container(
                 width: 200,
                 height: 200,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: NetworkImage(
-                      'https://cdn.pixabay.com/photo/2018/01/15/07/52/woman-3083401_960_720.jpg',
-                    ),
+                    image: NetworkImage(user[0]!.image),
                   ),
                 ),
               ),
               const Divider(),
-              const Text(
-                'Flora Primavera',
+              Text(
+                user[0]!.socialName,
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const Text(
-                'Florinda Primaveril',
+              Text(
+                user[0]!.name,
                 style: TextStyle(
                   fontSize: 16,
                   fontStyle: FontStyle.italic,
@@ -75,9 +76,9 @@ class _UserPageState extends State<UserPage> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   Text(
-                    '986',
+                    user[0]!.id,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -93,101 +94,7 @@ class _UserPageState extends State<UserPage> {
                   ),
                 ],
               ),
-              Container(
-                height: 5,
-              ),
-              ExpansionPanelList(
-                expansionCallback: (index, isExpanded) {
-                  setState(() {
-                    _contactExpanded = !isExpanded;
-                  });
-                },
-                children: profiles
-                    .map(
-                      (profile) => ExpansionPanel(
-                        canTapOnHeader: true,
-                        isExpanded: _contactExpanded,
-                        headerBuilder: (context, _expanded) => ListTile(
-                          title: Text('Contatos:'),
-                        ),
-                        body: ListTile(
-                          title: Text(profile.email),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Divider(),
-                              Text(profile.mobilePhone),
-                              Text(profile.phone),
-                            ],
-                          ),
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ),
-              Container(
-                height: 5,
-              ),
-              ExpansionPanelList(
-                expansionCallback: (index, isExpanded) {
-                  setState(() {
-                    _addressExpanded = !isExpanded;
-                  });
-                },
-                children: profiles
-                    .map(
-                      (profile) => ExpansionPanel(
-                        canTapOnHeader: true,
-                        isExpanded: _addressExpanded,
-                        headerBuilder: (context, _expanded) => ListTile(
-                          title: Text('Endereço:'),
-                        ),
-                        body: ListTile(
-                          subtitle: Text(profile.address),
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ),
-              Container(
-                height: 5,
-              ),
-              ExpansionPanelList(
-                expansionCallback: (index, isExpanded) {
-                  setState(() {
-                    _moreExpanded = !isExpanded;
-                  });
-                },
-                children: profiles
-                    .map(
-                      (profile) => ExpansionPanel(
-                        canTapOnHeader: true,
-                        isExpanded: _moreExpanded,
-                        headerBuilder: (context, _expanded) => ListTile(
-                          title: Text('Mais:'),
-                        ),
-                        body: ListTile(
-                          title: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('profissão: ${profile.profession}'),
-                              Text('nasc.: ${profile.birthday}'),
-                              Text('estado civil: ${profile.maritalStatus}'),
-                              Divider(),
-                            ],
-                          ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('SOS Contact: ${profile.sosContact}'),
-                              Text('SOS phone: ${profile.phone}'),
-                            ],
-                          ),
-                        ),
-                      ),
-                    )
-                    .toList(),
-              )
+              ExpansionDataProfile(profiles: profiles),
             ],
           ),
         ),

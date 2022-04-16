@@ -1,6 +1,7 @@
 class UserProfile {
   final String id;
   final String name;
+  final String socialName;
   final String image;
   final String email;
   final String mobilePhone;
@@ -13,6 +14,7 @@ class UserProfile {
   final String address;
 
   UserProfile({
+    required this.socialName,
     required this.id,
     required this.name,
     required this.image,

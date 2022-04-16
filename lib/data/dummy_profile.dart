@@ -2,9 +2,10 @@ import 'package:rcadmin_user/model/user_profile.dart';
 
 final dummyProfile = [
   UserProfile(
-    id: 'p1',
-    name: 'Jady Godoi',
-    image: 'https://github.com/jady-sm-godoi',
+    id: '986',
+    name: 'Jady Sobjak de Mello Godoi',
+    socialName: 'Jady Godoi',
+    image: 'https://avatars.githubusercontent.com/u/59850893?v=4',
     birthday: '22/03/1985',
     email: 'jady.s.m@gmail.com',
     mobilePhone: '11 98696-4499',
