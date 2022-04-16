@@ -10,16 +10,26 @@ void main() {
   runApp(const UserPage());
 }
 
-class UserPage extends StatelessWidget {
+class UserPage extends StatefulWidget {
   const UserPage({Key? key}) : super(key: key);
 
   @override
+  State<UserPage> createState() => _UserPageState();
+}
+
+class _UserPageState extends State<UserPage> {
+  bool _contactExpanded = false;
+  bool _addressExpanded = false;
+  bool _moreExpanded = false;
+
+  @override
   Widget build(BuildContext context) {
-    final List<UserProfile> profile = dummyProfile;
+    final List<UserProfile> profiles = dummyProfile;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        // backgroundColor: Colors.grey.shade200,
         appBar: AppBar(
           title: const Text('RCADMIN'),
           actions: const [
@@ -28,70 +38,158 @@ class UserPage extends StatelessWidget {
           backgroundColor: Colors.blueGrey,
         ),
         drawer: DrawerMenuProfile(),
-        body:
-
-            // const Card(
-            //   margin: EdgeInsets.all(20),
-            //   child: Padding(
-            //     padding: EdgeInsets.all(8.0),
-            //     child: ListTile(
-            //       leading: CircleAvatar(
-            //         radius: 30.0,
-            //         backgroundImage: NetworkImage(
-            //             'https://cdn.pixabay.com/photo/2018/01/15/07/52/woman-3083401_960_720.jpg'),
-            //       ),
-            //       title: Text('Florinda Spring'),
-            //       subtitle: Text('Aquarius (BR)\n4th. Aspect em 06/11/2016'),
-            //       isThreeLine: true,
-            //       trailing: Text('986'),
-            //     ),
-            //   ),
-            // )
-
-            Container(
-          padding: EdgeInsets.all(25),
-          child: Row(children: [
-            CircleAvatar(
-              radius: 50.0,
-              backgroundImage: NetworkImage(
-                  'https://cdn.pixabay.com/photo/2018/01/15/07/52/woman-3083401_960_720.jpg'),
-            ),
-            // Container(
-            //   height: 100,
-            //   width: 100,
-            //   decoration: const BoxDecoration(
-            //     shape: BoxShape.circle,
-            //     image: DecorationImage(
-            //       fit: BoxFit.cover,
-            //       image: NetworkImage(
-            //           'https://cdn.pixabay.com/photo/2018/01/15/07/52/woman-3083401_960_720.jpg'),
-            //     ),
-            //   ),
-            // ),
-            Container(
-              height: 100,
-              padding: const EdgeInsets.only(left: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text('Aquarius '),
-                      Text('960'),
-                    ],
+        body: Container(
+          margin: EdgeInsets.symmetric(vertical: 20, horizontal: 35),
+          alignment: Alignment.center,
+          width: double.infinity,
+          child: Column(
+            children: [
+              Container(
+                width: 200,
+                height: 200,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(
+                      'https://cdn.pixabay.com/photo/2018/01/15/07/52/woman-3083401_960_720.jpg',
+                    ),
+                  ),
+                ),
+              ),
+              const Divider(),
+              const Text(
+                'Flora Primavera',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Text(
+                'Florinda Primaveril',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.grey,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Text(
+                    '986',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
                   ),
                   Text(
-                    'Florinda Spring',
-                    style: Theme.of(context).textTheme.headline6,
+                    '4o Aspect',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.grey,
+                    ),
                   ),
-                  const Text('florinda_spring@email.com')
                 ],
               ),
-            )
-          ]),
+              Container(
+                height: 5,
+              ),
+              ExpansionPanelList(
+                expansionCallback: (index, isExpanded) {
+                  setState(() {
+                    _contactExpanded = !isExpanded;
+                  });
+                },
+                children: profiles
+                    .map(
+                      (profile) => ExpansionPanel(
+                        canTapOnHeader: true,
+                        isExpanded: _contactExpanded,
+                        headerBuilder: (context, _expanded) => ListTile(
+                          title: Text('Contatos:'),
+                        ),
+                        body: ListTile(
+                          title: Text(profile.email),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Divider(),
+                              Text(profile.mobilePhone),
+                              Text(profile.phone),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+              Container(
+                height: 5,
+              ),
+              ExpansionPanelList(
+                expansionCallback: (index, isExpanded) {
+                  setState(() {
+                    _addressExpanded = !isExpanded;
+                  });
+                },
+                children: profiles
+                    .map(
+                      (profile) => ExpansionPanel(
+                        canTapOnHeader: true,
+                        isExpanded: _addressExpanded,
+                        headerBuilder: (context, _expanded) => ListTile(
+                          title: Text('Endereço:'),
+                        ),
+                        body: ListTile(
+                          subtitle: Text(profile.address),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+              Container(
+                height: 5,
+              ),
+              ExpansionPanelList(
+                expansionCallback: (index, isExpanded) {
+                  setState(() {
+                    _moreExpanded = !isExpanded;
+                  });
+                },
+                children: profiles
+                    .map(
+                      (profile) => ExpansionPanel(
+                        canTapOnHeader: true,
+                        isExpanded: _moreExpanded,
+                        headerBuilder: (context, _expanded) => ListTile(
+                          title: Text('Mais:'),
+                        ),
+                        body: ListTile(
+                          title: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('profissão: ${profile.profession}'),
+                              Text('nasc.: ${profile.birthday}'),
+                              Text('estado civil: ${profile.maritalStatus}'),
+                              Divider(),
+                            ],
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('SOS Contact: ${profile.sosContact}'),
+                              Text('SOS phone: ${profile.phone}'),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              )
+            ],
+          ),
         ),
       ),
     );
