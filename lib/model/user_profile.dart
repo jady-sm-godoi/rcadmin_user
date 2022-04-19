@@ -12,8 +12,10 @@ class UserProfile {
   final String sosContact;
   final String sosPhone;
   final String address;
+  final String disciple;
 
   UserProfile({
+    required this.disciple,
     required this.socialName,
     required this.id,
     required this.name,

@@ -36,7 +36,7 @@ class _ExpansionDataProfileState extends State<ExpansionDataProfile> {
                 (profile) => ExpansionPanel(
                   canTapOnHeader: true,
                   isExpanded: _contactExpanded,
-                  headerBuilder: (context, _contactExpanded) => ListTile(
+                  headerBuilder: (context, _contactExpanded) => const ListTile(
                     title: Text('Contatos:'),
                   ),
                   body: ListTile(
@@ -68,7 +68,7 @@ class _ExpansionDataProfileState extends State<ExpansionDataProfile> {
                 (profile) => ExpansionPanel(
                   canTapOnHeader: true,
                   isExpanded: _addressExpanded,
-                  headerBuilder: (context, _addressExpanded) => ListTile(
+                  headerBuilder: (context, _addressExpanded) => const ListTile(
                     title: Text('Endereço:'),
                   ),
                   body: ListTile(
@@ -92,7 +92,7 @@ class _ExpansionDataProfileState extends State<ExpansionDataProfile> {
                 (profile) => ExpansionPanel(
                   canTapOnHeader: true,
                   isExpanded: _moreExpanded,
-                  headerBuilder: (context, _moreExpanded) => ListTile(
+                  headerBuilder: (context, _moreExpanded) => const ListTile(
                     title: Text('Mais:'),
                   ),
                   body: ListTile(
