@@ -5,6 +5,7 @@ import 'components/drawer_menu_profile.dart';
 import 'components/menu_profile.dart';
 import 'components/expansion_data_profile.dart';
 
+import 'components/profile_image.dart';
 import 'model/user_profile.dart';
 
 void main() {
@@ -45,57 +46,65 @@ class _UserPageState extends State<UserPage> {
           margin: EdgeInsets.symmetric(vertical: 20, horizontal: 35),
           alignment: Alignment.center,
           width: double.infinity,
-          child: Column(
-            children: [
-              Container(
-                width: 200,
-                height: 200,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(user[0]!.image),
-                  ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                ProfileImage(
+                  imageUrl: user[0]!.image,
                 ),
-              ),
-              const Divider(),
-              Text(
-                user[0]!.socialName,
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                user[0]!.name,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontStyle: FontStyle.italic,
-                  color: Colors.grey,
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    user[0]!.id,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
+                Card(
+                  color: Colors.white,
+                  elevation: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Column(
+                      children: [
+                        Text(
+                          user[0]!.socialName,
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          user[0]!.name,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontStyle: FontStyle.italic,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                user[0]!.id,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              Text(
+                                user[0]!.disciple,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Text(
-                    '4o Aspect',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
-              ExpansionDataProfile(profiles: profiles),
-            ],
+                  margin: EdgeInsets.only(top: 20),
+                ),
+                ExpansionDataProfile(profiles: profiles),
+              ],
+            ),
           ),
         ),
       ),
