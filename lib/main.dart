@@ -34,7 +34,6 @@ class _UserPageState extends State<UserPage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        // backgroundColor: Colors.grey.shade200,
         appBar: AppBar(
           title: const Text('RCADMIN'),
           actions: const [
@@ -42,7 +41,9 @@ class _UserPageState extends State<UserPage> {
           ],
           backgroundColor: Colors.blueGrey,
         ),
-        drawer: const DrawerMenuProfile(),
+        drawer: DrawerMenuProfile(
+          user: user,
+        ),
         body: Container(
           margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 35),
           alignment: Alignment.center,
