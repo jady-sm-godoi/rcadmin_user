@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:rcadmin_user/model/user_profile.dart';
 
 class ProfileHeadCard extends StatelessWidget {
-  List<UserProfile?> user;
+  final List<UserProfile?> user;
 
-  ProfileHeadCard({
+  const ProfileHeadCard({
     Key? key,
     required this.user,
   }) : super(key: key);

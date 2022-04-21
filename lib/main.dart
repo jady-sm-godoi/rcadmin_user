@@ -53,6 +53,10 @@ class _UserPageState extends State<UserPage> {
               children: [
                 ProfileImage(
                   imageUrl: user[0]!.image,
+                  imageHeight: 170,
+                  imageWidth: 170,
+                  marginHeight: 190,
+                  marginWidth: 190,
                 ),
                 ProfileHeadCard(
                   user: user,

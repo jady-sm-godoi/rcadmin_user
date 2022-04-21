@@ -11,7 +11,7 @@ class _MenuProfileState extends State<MenuProfile> {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-        icon: Icon(Icons.person),
+        icon: const Icon(Icons.person),
         itemBuilder: (context) => [
               PopupMenuItem(
                 child: Row(

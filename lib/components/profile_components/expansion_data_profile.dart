@@ -4,7 +4,7 @@ import 'package:rcadmin_user/model/user_profile.dart';
 class ExpansionDataProfile extends StatefulWidget {
   final List<UserProfile> profiles;
 
-  ExpansionDataProfile({
+  const ExpansionDataProfile({
     Key? key,
     required this.profiles,
   }) : super(key: key);
@@ -102,7 +102,7 @@ class _ExpansionDataProfileState extends State<ExpansionDataProfile> {
                         Text('profissão: ${profile.profession}'),
                         Text('nasc.: ${profile.birthday}'),
                         Text('estado civil: ${profile.maritalStatus}'),
-                        Divider(),
+                        const Divider(),
                       ],
                     ),
                     subtitle: Column(

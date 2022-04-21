@@ -2,8 +2,19 @@ import 'package:flutter/material.dart';
 
 class ProfileImage extends StatelessWidget {
   final String imageUrl;
+  final double imageWidth;
+  final double marginWidth;
+  final double imageHeight;
+  final double marginHeight;
 
-  const ProfileImage({Key? key, required this.imageUrl}) : super(key: key);
+  const ProfileImage(
+      {Key? key,
+      required this.imageUrl,
+      required this.imageWidth,
+      required this.marginWidth,
+      required this.imageHeight,
+      required this.marginHeight})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +22,8 @@ class ProfileImage extends StatelessWidget {
       alignment: AlignmentDirectional.center,
       children: [
         Container(
-          width: 190,
-          height: 190,
+          width: marginWidth,
+          height: marginHeight,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: Colors.white,
@@ -26,8 +37,8 @@ class ProfileImage extends StatelessWidget {
           ),
         ),
         Container(
-          width: 170,
-          height: 170,
+          width: imageWidth,
+          height: imageHeight,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(

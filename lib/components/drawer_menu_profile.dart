@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:rcadmin_user/components/profile_components/profile_image.dart';
 import 'package:rcadmin_user/model/user_profile.dart';
 
 import 'package:rcadmin_user/pages/frequencies.dart';
 
 class DrawerMenuProfile extends StatelessWidget {
-  List<UserProfile?> user;
+  final List<UserProfile?> user;
 
-  DrawerMenuProfile({
+  const DrawerMenuProfile({
     Key? key,
     required this.user,
   }) : super(key: key);
@@ -37,30 +38,39 @@ class DrawerMenuProfile extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    CircleAvatar(
-                      radius: 40,
-                      backgroundImage: NetworkImage(user[0]!.image),
-                      child: Text(user[0]!.id),
+                    ProfileImage(
+                      imageUrl: user[0]!.image,
+                      imageHeight: 80,
+                      imageWidth: 80,
+                      marginHeight: 90,
+                      marginWidth: 90,
                     ),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
                         Text(
+                          user[0]!.id,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const Text(
                           'Núcleo Aquarius',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 14,
                           ),
                         ),
-                        Divider(),
-                        Text(
+                        const Divider(),
+                        const Text(
                           '11 3208-8682 | 11 94570-0480',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 12,
                           ),
                         ),
-                        Text(
+                        const Text(
                           'saopaulo@lr.org.br',
                           style: TextStyle(
                             color: Colors.white,
@@ -71,8 +81,8 @@ class DrawerMenuProfile extends StatelessWidget {
                     )
                   ],
                 ),
-                Divider(),
-                Text(
+                const Divider(),
+                const Text(
                   'Relatórios e contribuições:',
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
