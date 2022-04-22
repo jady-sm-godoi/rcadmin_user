@@ -13,6 +13,7 @@ class UserProfile {
   final String sosPhone;
   final String address;
   final String disciple;
+  final List<Map>? frequencies;
 
   UserProfile({
     required this.disciple,
@@ -29,5 +30,6 @@ class UserProfile {
     required this.sosContact,
     required this.sosPhone,
     required this.address,
+    this.frequencies,
   });
 }

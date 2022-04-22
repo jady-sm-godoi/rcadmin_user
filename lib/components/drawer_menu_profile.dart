@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rcadmin_user/components/profile_components/profile_image.dart';
 import 'package:rcadmin_user/model/user_profile.dart';
+import 'package:rcadmin_user/pages/contributions.dart';
 
 import 'package:rcadmin_user/pages/frequencies.dart';
+import 'package:rcadmin_user/pages/historic.dart';
 
 class DrawerMenuProfile extends StatelessWidget {
   final List<UserProfile?> user;
@@ -16,7 +18,29 @@ class DrawerMenuProfile extends StatelessWidget {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) {
-          return const Frequencies();
+          return Frequencies(
+            user: user,
+          );
+        },
+      ),
+    );
+  }
+
+  void _historicPage(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) {
+          return const Historics();
+        },
+      ),
+    );
+  }
+
+  void _contributionsPage(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) {
+          return const Contributions();
         },
       ),
     );
@@ -99,15 +123,15 @@ class DrawerMenuProfile extends StatelessWidget {
           ListTile(
             title: const Text('Histórico'),
             onTap: () {
-              print('Histórico');
               Navigator.pop(context);
+              _historicPage(context);
             },
           ),
           ListTile(
             title: const Text('Contribuições'),
             onTap: () {
-              print('Contribuições/Tesouraria');
               Navigator.pop(context);
+              _contributionsPage(context);
             },
           ),
         ],
