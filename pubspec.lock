@@ -109,6 +109,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
+  select_form_field:
+    dependency: "direct dev"
+    description:
+      name: select_form_field
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.2.0"
   sky_engine:
     dependency: transitive
     description: flutter

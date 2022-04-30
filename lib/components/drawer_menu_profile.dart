@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rcadmin_user/components/profile_components/profile_image.dart';
 import 'package:rcadmin_user/model/user_profile.dart';
-import 'package:rcadmin_user/pages/contributions.dart';
-
-import 'package:rcadmin_user/pages/frequencies.dart';
-import 'package:rcadmin_user/pages/historic.dart';
 import 'package:rcadmin_user/utils/app_routes.dart';
 
 class DrawerMenuProfile extends StatelessWidget {
@@ -14,26 +10,6 @@ class DrawerMenuProfile extends StatelessWidget {
     Key? key,
     required this.user,
   }) : super(key: key);
-
-  void _historicPage(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) {
-          return const Historics();
-        },
-      ),
-    );
-  }
-
-  void _contributionsPage(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) {
-          return const Contributions();
-        },
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,4 @@
-import 'package:rcadmin_user/pages/historic.dart';
+// ignore_for_file: constant_identifier_names
 
 class AppRoutes {
   static const PROFILE_FORM = '/profile-form';
