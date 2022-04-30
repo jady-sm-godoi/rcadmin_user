@@ -5,6 +5,7 @@ import 'package:rcadmin_user/pages/contributions.dart';
 
 import 'package:rcadmin_user/pages/frequencies.dart';
 import 'package:rcadmin_user/pages/historic.dart';
+import 'package:rcadmin_user/utils/app_routes.dart';
 
 class DrawerMenuProfile extends StatelessWidget {
   final List<UserProfile?> user;
@@ -13,18 +14,6 @@ class DrawerMenuProfile extends StatelessWidget {
     Key? key,
     required this.user,
   }) : super(key: key);
-
-  void _frequenciesPage(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) {
-          return Frequencies(
-            user: user,
-          );
-        },
-      ),
-    );
-  }
 
   void _historicPage(BuildContext context) {
     Navigator.of(context).push(
@@ -116,22 +105,19 @@ class DrawerMenuProfile extends StatelessWidget {
           ListTile(
             title: const Text('Frequências'),
             onTap: () {
-              Navigator.pop(context);
-              _frequenciesPage(context);
+              Navigator.of(context).pushNamed(AppRoutes.FREQUENCIES);
             },
           ),
           ListTile(
             title: const Text('Histórico'),
             onTap: () {
-              Navigator.pop(context);
-              _historicPage(context);
+              Navigator.of(context).pushNamed(AppRoutes.HISTORIC);
             },
           ),
           ListTile(
             title: const Text('Contribuições'),
             onTap: () {
-              Navigator.pop(context);
-              _contributionsPage(context);
+              Navigator.of(context).pushNamed(AppRoutes.CONTRIBUTIONS);
             },
           ),
         ],
