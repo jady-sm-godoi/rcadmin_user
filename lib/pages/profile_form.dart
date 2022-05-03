@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:rcadmin_user/data/dummy_profile.dart';
+import 'package:rcadmin_user/model/user_profile.dart';
 import 'package:select_form_field/select_form_field.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileForm extends StatefulWidget {
   const ProfileForm({Key? key}) : super(key: key);
@@ -28,6 +33,20 @@ final List<Map<String, dynamic>> _items = [
 ];
 
 class _ProfileFormState extends State<ProfileForm> {
+  File? _storedImage;
+
+  _takePicture() async {
+    final ImagePicker _picker = ImagePicker();
+    XFile imageFile = await _picker.pickImage(
+      source: ImageSource.camera,
+      maxWidth: 600,
+    ) as XFile;
+
+    setState(() {
+      _storedImage = File(imageFile.path);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,7 +149,6 @@ class _ProfileFormState extends State<ProfileForm> {
                           labelText: 'UF:',
                           labelStyle: TextStyle(color: Colors.blueGrey)),
                       textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.number,
                     ),
                   ),
                   Expanded(
@@ -141,6 +159,7 @@ class _ProfileFormState extends State<ProfileForm> {
                           labelText: 'CEP:',
                           labelStyle: TextStyle(color: Colors.blueGrey)),
                       textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.number,
                     ),
                   ),
                 ],
@@ -160,7 +179,7 @@ class _ProfileFormState extends State<ProfileForm> {
                           labelText: 'Data Nascimento:',
                           labelStyle: TextStyle(color: Colors.blueGrey)),
                       textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.datetime,
                     ),
                   ),
                   Expanded(
@@ -174,6 +193,45 @@ class _ProfileFormState extends State<ProfileForm> {
                     onSaved: (val) {},
                   )),
                 ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      width: 180,
+                      height: 240,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 3,
+                          color: Colors.grey.shade400,
+                        ),
+                      ),
+                      alignment: Alignment.center,
+                      child: _storedImage != null
+                          ? Image.file(
+                              _storedImage!,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                            )
+                          : const Text(
+                              'Nenhuma imagem',
+                              style: TextStyle(color: Colors.blueGrey),
+                            ),
+                    ),
+                    Expanded(
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.camera,
+                          size: 50,
+                          color: Colors.blueGrey,
+                        ),
+                        onPressed: _takePicture,
+                      ),
+                    )
+                  ],
+                ),
               ),
             ],
           ),

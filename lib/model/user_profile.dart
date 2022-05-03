@@ -2,7 +2,7 @@ class UserProfile {
   final String id;
   final String name;
   final String socialName;
-  final String image;
+  String image;
   final String email;
   final String mobilePhone;
   final String phone;
