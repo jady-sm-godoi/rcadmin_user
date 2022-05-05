@@ -39,6 +39,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   select_form_field: "^2.2.0"
+  provider: ^5.0.0
 
   image_picker: ^0.8.5
 

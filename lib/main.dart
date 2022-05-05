@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rcadmin_user/data/dummy_profile.dart';
 import 'package:rcadmin_user/pages/contributions.dart';
 import 'package:rcadmin_user/pages/frequencies.dart';
 import 'package:rcadmin_user/pages/historic.dart';
 import 'package:rcadmin_user/pages/profile_form.dart';
+import 'package:rcadmin_user/pages/user_profile_page.dart';
 import 'package:rcadmin_user/utils/app_routes.dart';
 
 import 'components/drawer_menu_profile.dart';
@@ -13,6 +15,7 @@ import 'components/profile_components/expansion_data_profile.dart';
 import 'components/profile_components/profile_head_card.dart';
 import 'components/profile_components/profile_image.dart';
 import 'model/user_profile.dart';
+import 'model/user_profile_list.dart';
 
 void main() {
   runApp(const UserPage());
@@ -36,65 +39,22 @@ class _UserPageState extends State<UserPage> {
       }
     }).toList();
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Builder(
-        builder: (context) => Scaffold(
-          appBar: AppBar(
-            title: const Text('RCADMIN'),
-            actions: const [
-              MenuProfile(),
-            ],
-            backgroundColor: Colors.blueGrey,
-          ),
-          drawer: DrawerMenuProfile(
-            user: user,
-          ),
-          body: Container(
-            margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 35),
-            alignment: Alignment.center,
-            width: double.infinity,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  ProfileImage(
-                    imageUrl: user[0]!.image,
-                    imageHeight: 170,
-                    imageWidth: 170,
-                    marginHeight: 190,
-                    marginWidth: 190,
-                  ),
-                  ProfileHeadCard(
-                    user: user,
-                  ),
-                  ExpansionDataProfile(profiles: profiles),
-                ],
-              ),
-            ),
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(AppRoutes.PROFILE_FORM);
-            },
-            child: const Icon(Icons.edit),
-            backgroundColor: Colors.blueGrey,
-          ),
-          bottomNavigationBar: BottomAppBar(
-            color: Colors.grey[400],
-            child: Container(
-              height: 60,
-            ),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-        ),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => UserProfileList(),
+        )
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        routes: {
+          AppRoutes.USER_PROFILE: (ctx) => const UserProfilePage(),
+          AppRoutes.PROFILE_FORM: (ctx) => const ProfileForm(),
+          AppRoutes.FREQUENCIES: (ctx) => const Frequencies(),
+          AppRoutes.HISTORIC: (ctx) => const Historics(),
+          AppRoutes.CONTRIBUTIONS: (ctx) => const Contributions(),
+        },
       ),
-      routes: {
-        AppRoutes.PROFILE_FORM: (ctx) => const ProfileForm(),
-        AppRoutes.FREQUENCIES: (ctx) => const Frequencies(),
-        AppRoutes.HISTORIC: (ctx) => const Historics(),
-        AppRoutes.CONTRIBUTIONS: (ctx) => const Contributions(),
-      },
     );
   }
 }

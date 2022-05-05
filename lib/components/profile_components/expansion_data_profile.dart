@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:rcadmin_user/model/user_profile.dart';
+import 'package:rcadmin_user/model/user_profile_list.dart';
 
 class ExpansionDataProfile extends StatefulWidget {
-  final List<UserProfile> profiles;
+  // final List<UserProfile> profiles;
 
   const ExpansionDataProfile({
     Key? key,
-    required this.profiles,
   }) : super(key: key);
 
   @override
@@ -20,6 +22,8 @@ class _ExpansionDataProfileState extends State<ExpansionDataProfile> {
 
   @override
   Widget build(BuildContext context) {
+    final UserProfileList users = Provider.of(context);
+
     return Column(
       children: [
         Container(
@@ -31,7 +35,7 @@ class _ExpansionDataProfileState extends State<ExpansionDataProfile> {
               _contactExpanded = !isExpanded;
             });
           },
-          children: widget.profiles
+          children: users.profiles
               .map(
                 (profile) => ExpansionPanel(
                   canTapOnHeader: true,
@@ -63,7 +67,7 @@ class _ExpansionDataProfileState extends State<ExpansionDataProfile> {
               _addressExpanded = !isExpanded;
             });
           },
-          children: widget.profiles
+          children: users.profiles
               .map(
                 (profile) => ExpansionPanel(
                   canTapOnHeader: true,
@@ -77,19 +81,19 @@ class _ExpansionDataProfileState extends State<ExpansionDataProfile> {
                       children: [
                         Row(
                           children: [
-                            Text('${widget.profiles[0].street ?? ''}, '),
-                            Text(widget.profiles[0].houseNumber ?? ''),
+                            Text('${users.profiles[0].street ?? ''}, '),
+                            Text(users.profiles[0].houseNumber ?? ''),
                           ],
                         ),
-                        if (widget.profiles[0].complement != null)
-                          Text(widget.profiles[0].complement ?? ''),
-                        Text(widget.profiles[0].district ?? ''),
+                        if (users.profiles[0].complement != null)
+                          Text(users.profiles[0].complement ?? ''),
+                        Text(users.profiles[0].district ?? ''),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                                '${widget.profiles[0].city ?? ''} - ${widget.profiles[0].uf ?? ''}'),
-                            Text('CEP: ${widget.profiles[0].zipCode ?? ''}'),
+                                '${users.profiles[0].city ?? ''} - ${users.profiles[0].uf ?? ''}'),
+                            Text('CEP: ${users.profiles[0].zipCode ?? ''}'),
                           ],
                         ),
                       ],
@@ -108,7 +112,7 @@ class _ExpansionDataProfileState extends State<ExpansionDataProfile> {
               _moreExpanded = !isExpanded;
             });
           },
-          children: widget.profiles
+          children: users.profiles
               .map(
                 (profile) => ExpansionPanel(
                   canTapOnHeader: true,

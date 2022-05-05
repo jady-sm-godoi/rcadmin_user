@@ -1,4 +1,6 @@
-class UserProfile {
+import 'package:flutter/widgets.dart';
+
+class UserProfile with ChangeNotifier {
   final String id;
   final String? name;
   final String socialName;

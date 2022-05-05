@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:rcadmin_user/model/user_profile.dart';
+import 'package:rcadmin_user/model/user_profile_list.dart';
 
 class ProfileHeadCard extends StatelessWidget {
-  final List<UserProfile?> user;
-
   const ProfileHeadCard({
     Key? key,
-    required this.user,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final UserProfileList users = Provider.of(context);
+
     return Card(
       color: Colors.white,
       elevation: 2,
@@ -19,14 +21,14 @@ class ProfileHeadCard extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              user[0]!.socialName,
+              users.profiles[0].socialName,
               style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Text(
-              user[0]?.name ?? '',
+              users.profiles[0].name ?? '',
               style: const TextStyle(
                 fontSize: 16,
                 fontStyle: FontStyle.italic,
@@ -39,7 +41,7 @@ class ProfileHeadCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    user[0]!.id,
+                    users.profiles[0].id,
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -47,7 +49,7 @@ class ProfileHeadCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    user[0]?.disciple ?? '',
+                    users.profiles[0].disciple ?? '',
                     style: const TextStyle(
                       fontSize: 18,
                       color: Colors.grey,
