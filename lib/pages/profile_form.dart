@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:rcadmin_user/data/dummy_profile.dart';
-import 'package:rcadmin_user/model/user_profile.dart';
+
 import 'package:select_form_field/select_form_field.dart';
 import 'package:image_picker/image_picker.dart';
+
+import 'package:rcadmin_user/model/user_profile.dart';
 
 class ProfileForm extends StatefulWidget {
   const ProfileForm({Key? key}) : super(key: key);

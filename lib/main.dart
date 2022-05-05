@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:rcadmin_user/data/dummy_profile.dart';
+import 'model/user_profile.dart';
+import 'model/user_profile_list.dart';
+
 import 'package:rcadmin_user/pages/contributions.dart';
 import 'package:rcadmin_user/pages/frequencies.dart';
 import 'package:rcadmin_user/pages/historic.dart';
 import 'package:rcadmin_user/pages/profile_form.dart';
 import 'package:rcadmin_user/pages/user_profile_page.dart';
+
 import 'package:rcadmin_user/utils/app_routes.dart';
-
-import 'components/drawer_menu_profile.dart';
-import 'components/menu_profile.dart';
-import 'components/profile_components/expansion_data_profile.dart';
-
-import 'components/profile_components/profile_head_card.dart';
-import 'components/profile_components/profile_image.dart';
-import 'model/user_profile.dart';
-import 'model/user_profile_list.dart';
 
 void main() {
   runApp(const UserPage());

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:rcadmin_user/model/user_profile.dart';
 import 'package:rcadmin_user/model/user_profile_list.dart';
 
 class ExpansionDataProfile extends StatefulWidget {

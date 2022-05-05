@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:rcadmin_user/model/user_profile_list.dart';
 import 'package:provider/provider.dart';
+
+import 'package:rcadmin_user/model/user_profile_list.dart';
 
 import '../components/drawer_menu_profile.dart';
 import '../components/menu_profile.dart';
+
 import '../components/profile_components/expansion_data_profile.dart';
 import '../components/profile_components/profile_head_card.dart';
 import '../components/profile_components/profile_image.dart';
+
 import '../utils/app_routes.dart';
 
 class UserProfilePage extends StatelessWidget {
