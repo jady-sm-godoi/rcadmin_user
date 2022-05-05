@@ -26,7 +26,7 @@ class ProfileHeadCard extends StatelessWidget {
               ),
             ),
             Text(
-              user[0]!.name,
+              user[0]?.name ?? '',
               style: const TextStyle(
                 fontSize: 16,
                 fontStyle: FontStyle.italic,
@@ -47,7 +47,7 @@ class ProfileHeadCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    user[0]!.disciple,
+                    user[0]?.disciple ?? '',
                     style: const TextStyle(
                       fontSize: 18,
                       color: Colors.grey,

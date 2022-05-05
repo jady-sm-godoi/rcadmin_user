@@ -72,7 +72,28 @@ class _ExpansionDataProfileState extends State<ExpansionDataProfile> {
                     title: Text('Endereço:'),
                   ),
                   body: ListTile(
-                    subtitle: Text(profile.address),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Text('${widget.profiles[0].street ?? ''}, '),
+                            Text(widget.profiles[0].houseNumber ?? ''),
+                          ],
+                        ),
+                        if (widget.profiles[0].complement != null)
+                          Text(widget.profiles[0].complement ?? ''),
+                        Text(widget.profiles[0].district ?? ''),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                                '${widget.profiles[0].city ?? ''} - ${widget.profiles[0].uf ?? ''}'),
+                            Text('CEP: ${widget.profiles[0].zipCode ?? ''}'),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               )

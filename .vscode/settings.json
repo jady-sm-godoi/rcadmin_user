@@ -4,5 +4,8 @@
     "Historics",
     "nasc",
     "rcadmin"
-  ]
+  ],
+  "editor.codeLensFontSize": 16,
+  "editor.fontSize": 16,
+  "oneDarkPro.editorTheme": "VS Code"
 }

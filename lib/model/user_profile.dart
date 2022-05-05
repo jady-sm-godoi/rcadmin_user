@@ -1,6 +1,6 @@
 class UserProfile {
   final String id;
-  final String name;
+  final String? name;
   final String socialName;
   String image;
   final String email;
@@ -11,15 +11,28 @@ class UserProfile {
   final String maritalStatus;
   final String sosContact;
   final String sosPhone;
-  final String address;
-  final String disciple;
+  final String? disciple;
   final List<Map>? frequencies;
+  final String? street;
+  final String? houseNumber;
+  final String? district;
+  final String? city;
+  final String? uf;
+  final String? zipCode;
+  final String? complement;
 
   UserProfile({
-    required this.disciple,
+    this.street,
+    this.houseNumber,
+    this.district,
+    this.uf,
+    this.city,
+    this.zipCode,
+    this.complement,
+    this.disciple,
     required this.socialName,
     required this.id,
-    required this.name,
+    this.name,
     required this.image,
     required this.email,
     required this.mobilePhone,
@@ -29,7 +42,6 @@ class UserProfile {
     required this.maritalStatus,
     required this.sosContact,
     required this.sosPhone,
-    required this.address,
     this.frequencies,
   });
 }
