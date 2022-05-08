@@ -1,11 +1,12 @@
 import 'dart:io';
-import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rcadmin_user/utils/validators_form.dart';
 
 import 'package:select_form_field/select_form_field.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'package:rcadmin_user/model/user_profile.dart';
+import '../model/user_profile_list.dart';
 
 class ProfileForm extends StatefulWidget {
   const ProfileForm({Key? key}) : super(key: key);
@@ -68,31 +69,21 @@ class _ProfileFormState extends State<ProfileForm> {
   }
 
   void submitForm() {
+    final _isValidForm = _formKey.currentState?.validate() ?? false;
+
+    if (!_isValidForm) {
+      return;
+    }
+
     _formKey.currentState?.save();
-    final newUser = UserProfile(
-      id: Random().nextDouble().toString(),
-      socialName: _formUserData['socialName'].toString(),
-      birthday: _formUserData['birthday'].toString(),
-      email: _formUserData['email'].toString(),
-      image: _formUserData['image'].toString(),
-      phone: _formUserData['phone'].toString(),
-      mobilePhone: _formUserData['mobilePhone'].toString(),
-      sosContact: _formUserData['sosContact'].toString(),
-      sosPhone: _formUserData['sosPhone'].toString(),
-      profession: _formUserData['profession'].toString(),
-      maritalStatus: _formUserData['maritalStatus'].toString(),
-    );
+
+    Provider.of<UserProfileList>(
+      context,
+      listen: false,
+    ).addUserFromData(_formUserData);
+    Navigator.of(context).pop();
 
     //neste método temos que salvar a imagem que está instanciada em _storedImage
-
-    print(newUser.id);
-    print(newUser.socialName);
-    print(newUser.email);
-    print(newUser.mobilePhone);
-    print(newUser.birthday);
-    print(newUser.profession);
-    print(newUser.maritalStatus);
-    print(_storedImage);
   }
 
   @override
@@ -122,6 +113,7 @@ class _ProfileFormState extends State<ProfileForm> {
                 controller: _socialNameController,
                 onSaved: (socialName) =>
                     _formUserData['socialName'] = socialName ?? '',
+                validator: ValidatorsForm().validateName,
               ),
               TextFormField(
                 decoration: const InputDecoration(
@@ -131,6 +123,7 @@ class _ProfileFormState extends State<ProfileForm> {
                 keyboardType: TextInputType.emailAddress,
                 controller: _emailController,
                 onSaved: (email) => _formUserData['email'] = email ?? '',
+                validator: ValidatorsForm().validarEmail,
               ),
               TextFormField(
                 decoration: const InputDecoration(
@@ -141,6 +134,7 @@ class _ProfileFormState extends State<ProfileForm> {
                 controller: _mobilePhoneController,
                 onSaved: (mobilePhone) =>
                     _formUserData['mobilePhone'] = mobilePhone ?? '',
+                validator: ValidatorsForm().validateMobile,
               ),
               TextFormField(
                 decoration: const InputDecoration(
@@ -150,6 +144,7 @@ class _ProfileFormState extends State<ProfileForm> {
                 keyboardType: TextInputType.phone,
                 controller: _phoneController,
                 onSaved: (phone) => _formUserData['phone'] = phone ?? '',
+                validator: ValidatorsForm().validatePhone,
               ),
               TextFormField(
                 decoration: const InputDecoration(
