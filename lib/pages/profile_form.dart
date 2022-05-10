@@ -123,7 +123,7 @@ class _ProfileFormState extends State<ProfileForm> {
                 keyboardType: TextInputType.emailAddress,
                 controller: _emailController,
                 onSaved: (email) => _formUserData['email'] = email ?? '',
-                validator: ValidatorsForm().validarEmail,
+                validator: ValidatorsForm().validateEmail,
               ),
               TextFormField(
                 decoration: const InputDecoration(
@@ -134,7 +134,7 @@ class _ProfileFormState extends State<ProfileForm> {
                 controller: _mobilePhoneController,
                 onSaved: (mobilePhone) =>
                     _formUserData['mobilePhone'] = mobilePhone ?? '',
-                validator: ValidatorsForm().validateMobile,
+                validator: ValidatorsForm().validatePhone,
               ),
               TextFormField(
                 decoration: const InputDecoration(
@@ -154,6 +154,7 @@ class _ProfileFormState extends State<ProfileForm> {
                 controller: _sosContactController,
                 onSaved: (sosContact) =>
                     _formUserData['sosContact'] = sosContact ?? '',
+                validator: ValidatorsForm().validateName,
               ),
               TextFormField(
                 decoration: const InputDecoration(
@@ -164,6 +165,7 @@ class _ProfileFormState extends State<ProfileForm> {
                 controller: _sosPhoneController,
                 onSaved: (sosPhone) =>
                     _formUserData['sosPhone'] = sosPhone ?? '',
+                validator: ValidatorsForm().validatePhone,
               ),
               TextFormField(
                 decoration: const InputDecoration(
@@ -270,6 +272,7 @@ class _ProfileFormState extends State<ProfileForm> {
                       controller: _bithdayController,
                       onSaved: (birthday) =>
                           _formUserData['birthday'] = birthday ?? '',
+                      validator: ValidatorsForm().validateDate,
                     ),
                   ),
                   Expanded(
