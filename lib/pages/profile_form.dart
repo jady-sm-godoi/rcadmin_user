@@ -6,7 +6,8 @@ import 'package:rcadmin_user/utils/validators_form.dart';
 import 'package:select_form_field/select_form_field.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../model/user_profile_list.dart';
+import '../services/user_profile_list.dart';
+import '../services/via_cep_service.dart';
 
 class ProfileForm extends StatefulWidget {
   const ProfileForm({Key? key}) : super(key: key);
@@ -42,7 +43,7 @@ class _ProfileFormState extends State<ProfileForm> {
   final _phoneController = TextEditingController();
   final _sosContactController = TextEditingController();
   final _sosPhoneController = TextEditingController();
-  final _streetController = TextEditingController();
+  var _streetController = TextEditingController();
   final _houseNumberController = TextEditingController();
   final _cityController = TextEditingController();
   final _ufController = TextEditingController();
@@ -56,6 +57,11 @@ class _ProfileFormState extends State<ProfileForm> {
   final _formKey = GlobalKey<FormState>();
   final _formUserData = <String, Object>{};
 
+  //for zip field
+  bool _loading = false;
+  bool _enableField = true;
+  String _result = '';
+
   _takePicture() async {
     final ImagePicker _picker = ImagePicker();
     XFile imageFile = await _picker.pickImage(
@@ -66,6 +72,33 @@ class _ProfileFormState extends State<ProfileForm> {
     setState(() {
       _storedImage = File(imageFile.path);
     });
+  }
+
+  void _searching(bool enable) {
+    setState(() {
+      _result = enable ? '' : _result;
+      _loading = enable;
+      _enableField = !enable;
+    });
+  }
+
+  Future _searchCep() async {
+    _searching(true);
+
+    final cep = _zipController.text;
+
+    final resultCep = await ViaCepService.fetchCep(cep: cep);
+    print(resultCep.localidade); // Exibindo somente a localidade no terminal
+
+    setState(() {
+      _result = resultCep.toJson().toString();
+      _streetController.text = resultCep.logradouro;
+      _cityController.text = resultCep.localidade;
+      _districtController.text = resultCep.bairro;
+      _ufController.text = resultCep.uf;
+      _complementController.text = resultCep.complemento;
+    });
+    _searching(false);
   }
 
   void submitForm() {
@@ -167,6 +200,25 @@ class _ProfileFormState extends State<ProfileForm> {
                     _formUserData['sosPhone'] = sosPhone ?? '',
                 validator: ValidatorsForm().validatePhone,
               ),
+              Focus(
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                      hintText: '01234-000',
+                      labelText: 'CEP:',
+                      labelStyle: TextStyle(color: Colors.blueGrey)),
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.number,
+                  controller: _zipController,
+                  enabled: _enableField,
+                  onSaved: (zipCode) =>
+                      _formUserData['zipCode'] = zipCode ?? '',
+                ),
+                onFocusChange: (hasFocus) {
+                  if (!hasFocus) {
+                    _searchCep();
+                  }
+                },
+              ),
               TextFormField(
                 decoration: const InputDecoration(
                     labelText: 'Rua:',
@@ -175,33 +227,24 @@ class _ProfileFormState extends State<ProfileForm> {
                 controller: _streetController,
                 onSaved: (street) => _formUserData['street'] = street ?? '',
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                          labelText: 'número:',
-                          labelStyle: TextStyle(color: Colors.blueGrey)),
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.number,
-                      controller: _houseNumberController,
-                      onSaved: (houseNumber) =>
-                          _formUserData['houseNumber'] = houseNumber ?? '',
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                          labelText: 'complemento:',
-                          labelStyle: TextStyle(color: Colors.blueGrey)),
-                      textInputAction: TextInputAction.next,
-                      controller: _complementController,
-                      onSaved: (complement) =>
-                          _formUserData['complement'] = complement ?? '',
-                    ),
-                  ),
-                ],
+              TextFormField(
+                decoration: const InputDecoration(
+                    labelText: 'número:',
+                    labelStyle: TextStyle(color: Colors.blueGrey)),
+                textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.number,
+                controller: _houseNumberController,
+                onSaved: (houseNumber) =>
+                    _formUserData['houseNumber'] = houseNumber ?? '',
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                    labelText: 'complemento:',
+                    labelStyle: TextStyle(color: Colors.blueGrey)),
+                textInputAction: TextInputAction.next,
+                controller: _complementController,
+                onSaved: (complement) =>
+                    _formUserData['complement'] = complement ?? '',
               ),
               TextFormField(
                 decoration: const InputDecoration(
@@ -220,35 +263,15 @@ class _ProfileFormState extends State<ProfileForm> {
                 controller: _cityController,
                 onSaved: (city) => _formUserData['city'] = city ?? '',
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      maxLength: 2,
-                      decoration: const InputDecoration(
-                          counterText: '',
-                          labelText: 'UF:',
-                          labelStyle: TextStyle(color: Colors.blueGrey)),
-                      textInputAction: TextInputAction.next,
-                      controller: _ufController,
-                      onSaved: (uf) => _formUserData['uf'] = uf ?? '',
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                          hintText: '01234-000',
-                          labelText: 'CEP:',
-                          labelStyle: TextStyle(color: Colors.blueGrey)),
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.number,
-                      controller: _zipController,
-                      onSaved: (zipCode) =>
-                          _formUserData['zipCode'] = zipCode ?? '',
-                    ),
-                  ),
-                ],
+              TextFormField(
+                maxLength: 2,
+                decoration: const InputDecoration(
+                    counterText: '',
+                    labelText: 'UF:',
+                    labelStyle: TextStyle(color: Colors.blueGrey)),
+                textInputAction: TextInputAction.next,
+                controller: _ufController,
+                onSaved: (uf) => _formUserData['uf'] = uf ?? '',
               ),
               TextFormField(
                 decoration: const InputDecoration(

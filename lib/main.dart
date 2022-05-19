@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:rcadmin_user/data/dummy_profile.dart';
 import 'model/user_profile.dart';
-import 'model/user_profile_list.dart';
+import 'services/user_profile_list.dart';
 
 import 'package:rcadmin_user/pages/contributions.dart';
 import 'package:rcadmin_user/pages/frequencies.dart';

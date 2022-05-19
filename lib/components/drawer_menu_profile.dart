@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:rcadmin_user/components/profile_components/profile_image.dart';
-import 'package:rcadmin_user/model/user_profile_list.dart';
+import 'package:rcadmin_user/services/user_profile_list.dart';
 import 'package:rcadmin_user/utils/app_routes.dart';
 
 class DrawerMenuProfile extends StatelessWidget {

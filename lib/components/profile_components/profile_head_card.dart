@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:rcadmin_user/model/user_profile_list.dart';
+import 'package:rcadmin_user/services/user_profile_list.dart';
 
 class ProfileHeadCard extends StatelessWidget {
   const ProfileHeadCard({
